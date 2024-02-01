@@ -27,6 +27,32 @@ module "labels" {
 
 }
 
+module "route53_labels" {
+  source  = "../../"
+
+  namespace           = "generic"
+  tenant              = "engineering"
+  environment         = "live"
+  stage               = "qa"
+  name                = "route53"
+
+  context = module.labels.context
+
+}
+
+module "ecs_labels" {
+  source  = "../../"
+
+  namespace           = "generic"
+  tenant              = "engineering"
+  environment         = "live"
+  stage               = "qa"
+  name                = "ecs"
+
+  context = module.labels.context
+
+}
+
 # Module Configuration
 variable "context" {
   type = any

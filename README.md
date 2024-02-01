@@ -1,3 +1,68 @@
+# Terraform-Module-Standard-Labels-Tags
+
+## Summary
+This is a simple module, designed to accept label and tag inputs to automatically generate standardized tags and ID 
+labels. Using this module will output the derived values as outputs to be used as shown below.
+
+### Example
+
+```hcl
+module "labels" {
+  source  = "../../"
+
+  enabled             = "true"
+  namespace           = "generic"
+  tenant              = "engineering"
+  environment         = "live"
+  stage               = "qa"
+  name                = "example"
+  delimiter           = "-"
+  attributes          = ["testing"]
+  tags                = {
+    "foo" = "bar"
+  }
+  label_order         = ["namespace", "name", "environment", "stage"]
+  regex_replace_chars = null
+  id_length_limit     = 45
+  key_case      = "lower"
+  value_case    = "lower"
+  labels_as_tags      = "true"
+
+  # Standard Prefixes
+  prefix_external_service  = "pimpmynines/external/service"
+  prefix_internal_service  = "pimpmynines/internal/service"
+  prefix_external_employee = "pimpmynines/external/employee"
+  prefix_internal_employee = "pimpmynines/internal/employees"
+
+}
+
+module "route53_labels" {
+  source  = "../../"
+
+  namespace           = "generic"
+  tenant              = "engineering"
+  environment         = "live"
+  stage               = "qa"
+  name                = "route53"
+
+  context = module.labels.context
+
+}
+
+module "ecs_labels" {
+  source  = "../../"
+
+  namespace           = "generic"
+  tenant              = "engineering"
+  environment         = "live"
+  stage               = "qa"
+  name                = "ecs"
+
+  context = module.labels.context
+
+}
+```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 

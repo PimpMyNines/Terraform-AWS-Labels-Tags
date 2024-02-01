@@ -18,7 +18,9 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_ecs_labels"></a> [ecs\_labels](#module\_ecs\_labels) | ../../ | n/a |
 | <a name="module_labels"></a> [labels](#module\_labels) | ../../ | n/a |
+| <a name="module_route53_labels"></a> [route53\_labels](#module\_route53\_labels) | ../../ | n/a |
 
 ## Resources
 
