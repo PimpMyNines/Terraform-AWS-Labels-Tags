@@ -14,10 +14,10 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
+        uses: hashicorp/setup-terraform@v3
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
@@ -37,10 +37,10 @@ jobs:
         id: plan
         if: github.event_name == 'pull_request'
         run: terraform plan -no-color -input=false
-        continue-on-error: true
+        continue-on-error: false
 
       - name: Update Pull Request
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         if: github.event_name == 'pull_request'
         env:
           PLAN: ${{ steps.plan.outputs.stdout }}
@@ -69,10 +69,19 @@ jobs:
               body: output
             })
 
-      - name: Terraform Plan Status
-        if: steps.plan.outcome == 'failure'
-        run: exit 1
+  fail:
+    name: Fail if Terraform Plan Failed
+    needs: terraform
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set workflow status as failed
+        run: echo "Terraform plan failed." && exit 1
 
+  apply:
+    name: Terraform Apply
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false

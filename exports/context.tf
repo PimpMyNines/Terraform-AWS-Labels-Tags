@@ -1,41 +1,41 @@
 module "labels" {
-  source  = "git@github.com:PimpMyNines/Terraform-Module-Standard-Labels-Tags.git?ref=main"
+  source = "git@github.com:PimpMyNines/Terraform-Module-Standard-Labels-Tags.git?ref=main"
 
   enabled = var.enabled
 
-  namespace = var.namespace
-  tenant = var.tenant
-  environment = var.environment
-  stage = var.stage
-  name = var.name
-  delimiter = var.delimiter
-  attributes = var.attributes
-  tags = var.tags
-  label_order = var.label_order
+  namespace           = var.namespace
+  tenant              = var.tenant
+  environment         = var.environment
+  stage               = var.stage
+  name                = var.name
+  delimiter           = var.delimiter
+  attributes          = var.attributes
+  tags                = var.tags
+  label_order         = var.label_order
   regex_replace_chars = var.regex_replace_chars
-  id_length_limit = var.id_length_limit
-  key_case = var.key_case
-  value_case = var.value_case
+  id_length_limit     = var.id_length_limit
+  key_case            = var.key_case
+  value_case          = var.value_case
 
   # AWS Details
-  aws_region = var.aws_region
+  aws_region     = var.aws_region
   aws_account_id = var.aws_account_id
-  aws_partition = var.aws_partition
+  aws_partition  = var.aws_partition
 
   # Prefixes
-  prefix_external_service = var.prefix_external_service
-  prefix_internal_service = var.prefix_internal_service
+  prefix_external_service  = var.prefix_external_service
+  prefix_internal_service  = var.prefix_internal_service
   prefix_external_employee = var.prefix_external_employee
   prefix_internal_employee = var.prefix_internal_employee
 
   # Tags
-  labels_as_tags = var.labels_as_tags
-  tag_department = var.tag_department
+  labels_as_tags        = var.labels_as_tags
+  tag_department        = var.tag_department
   tag_terraform_managed = var.tag_terraform_managed
-  tag_monitored_by = var.tag_monitored_by
-  tag_git_repo = var.tag_git_repo
-  tag_creation_time = var.tag_creation_time
-  tag_last_modified_by = var.tag_last_modified_by
+  tag_monitored_by      = var.tag_monitored_by
+  tag_git_repo          = var.tag_git_repo
+  tag_creation_time     = var.tag_creation_time
+  tag_last_modified_by  = var.tag_last_modified_by
 
   context = var.context
 }
@@ -44,35 +44,35 @@ module "labels" {
 variable "context" {
   type = any
   default = {
-    enabled                       = true
-    namespace                     = null
-    tenant                        = null
-    environment                   = null
-    stage                         = null
-    name                          = null
-    delimiter                     = null
-    attributes                    = []
-    tags                          = {}
-    additional_tag_map            = {}
-    regex_replace_chars           = null
-    label_order                   = []
-    id_length_limit               = null
-    key_case                      = null
-    value_case                    = null
-    descriptor_formats            = {}
-    labels_as_tags                = true
-    aws_region                    = null
-    aws_account_id                = null
-    aws_partition                 = null
-    tag_terraform_managed         = null
-    tag_monitored_by              = null
-    tag_git_repo                  = null
-    tag_creation_time             = null
-    tag_last_modified_by          = null
-    prefix_external_service       = null
-    prefix_internal_service       = null
-    prefix_external_employee      = null
-    prefix_internal_employee      = null
+    enabled                  = true
+    namespace                = null
+    tenant                   = null
+    environment              = null
+    stage                    = null
+    name                     = null
+    delimiter                = null
+    attributes               = []
+    tags                     = {}
+    additional_tag_map       = {}
+    regex_replace_chars      = null
+    label_order              = []
+    id_length_limit          = null
+    key_case                 = null
+    value_case               = null
+    descriptor_formats       = {}
+    labels_as_tags           = true
+    aws_region               = null
+    aws_account_id           = null
+    aws_partition            = null
+    tag_terraform_managed    = null
+    tag_monitored_by         = null
+    tag_git_repo             = null
+    tag_creation_time        = null
+    tag_last_modified_by     = null
+    prefix_external_service  = null
+    prefix_internal_service  = null
+    prefix_external_employee = null
+    prefix_internal_employee = null
   }
 
   description = <<-EOT
@@ -151,7 +151,7 @@ variable "labels_as_tags" {
   description = "Set as 'false' to prevent labels from being used as tags"
 
   validation {
-    condition     = can(
+    condition = can(
       var.labels_as_tags == true || var.labels_as_tags == false
     )
     error_message = "labels_as_tags must be either true or false."

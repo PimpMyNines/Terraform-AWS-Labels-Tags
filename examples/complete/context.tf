@@ -1,22 +1,22 @@
 module "labels" {
-  source  = "../../"
+  source = "../../"
 
-  enabled             = "true"
-  namespace           = "generic"
-  tenant              = "engineering"
-  environment         = "live"
-  stage               = "qa"
-  name                = "example"
-  delimiter           = "-"
-  attributes          = ["testing"]
-  tags                = {
+  enabled     = "true"
+  namespace   = "generic"
+  tenant      = "engineering"
+  environment = "live"
+  stage       = "qa"
+  name        = "example"
+  delimiter   = "-"
+  attributes  = ["testing"]
+  tags = {
     "foo" = "bar"
   }
   label_order         = ["namespace", "name", "environment", "stage"]
   regex_replace_chars = null
   id_length_limit     = 45
-  key_case      = "lower"
-  value_case    = "lower"
+  key_case            = "lower"
+  value_case          = "lower"
   labels_as_tags      = "true"
 
   # Standard Prefixes
@@ -27,39 +27,65 @@ module "labels" {
 
 }
 
+module "route53_labels" {
+  source = "../../"
+
+  namespace   = "generic"
+  tenant      = "engineering"
+  environment = "live"
+  stage       = "qa"
+  name        = "route53"
+
+  context = module.labels.context
+
+}
+
+module "ecs_labels" {
+  source = "../../"
+
+  namespace   = "generic"
+  tenant      = "engineering"
+  environment = "live"
+  stage       = "qa"
+  name        = "ecs"
+
+  context = module.labels.context
+
+}
+
 # Module Configuration
 variable "context" {
   type = any
   default = {
-    enabled                       = true
-    namespace                     = null
-    tenant                        = null
-    environment                   = null
-    stage                         = null
-    name                          = null
-    delimiter                     = null
-    attributes                    = []
-    tags                          = {}
-    additional_tag_map            = {}
-    regex_replace_chars           = null
-    label_order                   = []
-    id_length_limit               = null
-    key_case                      = null
-    value_case                    = null
-    descriptor_formats            = {}
-    labels_as_tags                = true
-    aws_region                    = null
-    aws_account_id                = null
-    aws_partition                 = null
-    tag_terraform_managed         = null
-    tag_monitored_by              = null
-    tag_git_repo                  = null
-    tag_creation_time             = null
-    tag_last_modified_by          = null
-    prefix_external_service       = null
-    prefix_internal_service       = null
-    prefix_external_employee      = null
-    prefix_internal_employee      = null
+    enabled                  = true
+    namespace                = null
+    tenant                   = null
+    environment              = null
+    stage                    = null
+    name                     = null
+    delimiter                = null
+    attributes               = []
+    tags                     = {}
+    additional_tag_map       = {}
+    regex_replace_chars      = null
+    label_order              = []
+    id_length_limit          = null
+    key_case                 = null
+    value_case               = null
+    descriptor_formats       = {}
+    labels_as_tags           = true
+    aws_region               = null
+    aws_account_id           = null
+    aws_partition            = null
+    tag_terraform_managed    = null
+    tag_monitored_by         = null
+    tag_git_repo             = null
+    tag_creation_time        = null
+    tag_last_modified_by     = null
+    prefix_external_service  = null
+    prefix_internal_service  = null
+    prefix_external_employee = null
+    prefix_internal_employee = null
   }
 
   description = <<-EOT
@@ -138,7 +164,7 @@ variable "labels_as_tags" {
   description = "Set as 'false' to prevent labels from being used as tags"
 
   validation {
-    condition     = can(
+    condition = can(
       var.labels_as_tags == true || var.labels_as_tags == false
     )
     error_message = "labels_as_tags must be either true or false."

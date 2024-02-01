@@ -18,7 +18,9 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_ecs_labels"></a> [ecs\_labels](#module\_ecs\_labels) | ../../ | n/a |
 | <a name="module_labels"></a> [labels](#module\_labels) | ../../ | n/a |
+| <a name="module_route53_labels"></a> [route53\_labels](#module\_route53\_labels) | ../../ | n/a |
 
 ## Resources
 
@@ -62,17 +64,7 @@ No resources.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_context"></a> [context](#output\_context) | Normalized context of this module |
-| <a name="output_delimiter"></a> [delimiter](#output\_delimiter) | Delimiter between `namespace`, `tenant`, `environment`, `stage`, `name` and `attributes` |
-| <a name="output_enabled"></a> [enabled](#output\_enabled) | True if module is enabled, false otherwise |
-| <a name="output_environment"></a> [environment](#output\_environment) | Normalized environment |
-| <a name="output_id"></a> [id](#output\_id) | Disambiguated ID string restricted to `id_length_limit` characters in total |
-| <a name="output_id_length_limit"></a> [id\_length\_limit](#output\_id\_length\_limit) | The id\_length\_limit actually used to create the ID, with `0` meaning unlimited |
-| <a name="output_label_order"></a> [label\_order](#output\_label\_order) | The naming order actually used to create the ID |
-| <a name="output_name"></a> [name](#output\_name) | Normalized name |
-| <a name="output_namespace"></a> [namespace](#output\_namespace) | Normalized namespace |
-| <a name="output_regex_replace_chars"></a> [regex\_replace\_chars](#output\_regex\_replace\_chars) | The regex\_replace\_chars actually used to create the ID |
-| <a name="output_stage"></a> [stage](#output\_stage) | Normalized stage |
-| <a name="output_tags"></a> [tags](#output\_tags) | Normalized Tag map |
-| <a name="output_tenant"></a> [tenant](#output\_tenant) | Normalized tenant |
+| <a name="output_ecs_context"></a> [ecs\_context](#output\_ecs\_context) | Context Output for ECS |
+| <a name="output_labels_context"></a> [labels\_context](#output\_labels\_context) | Context Output for Labels Module |
+| <a name="output_route53_context"></a> [route53\_context](#output\_route53\_context) | Context Output for Route53 |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
