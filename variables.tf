@@ -234,7 +234,7 @@ variable "tag_department" {
 variable "aws_region" {
   type        = string
   description = "AWS Region"
-  default     = null
+  default     = "us-east-1"
 }
 
 # AWS Account ID Variable
@@ -248,7 +248,7 @@ variable "aws_account_id" {
 variable "aws_partition" {
   type        = string
   description = "AWS Partition"
-  default     = null
+  default     = "aws"
 }
 
 # Tag for Creation Time Variable
