@@ -15,7 +15,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_labels"></a> [labels](#module\_labels) | git@github.com:PimpMyNines/Terraform-Module-Labels.git | main |
+| <a name="module_labels"></a> [labels](#module\_labels) | git@github.com:PimpMyNines/Terraform-Module-Standard-Labels-Tags.git | main |
 
 ## Resources
 

@@ -1,5 +1,5 @@
 module "labels" {
-  source  = "git@github.com:PimpMyNines/Terraform-Module-Labels.git?ref=main"
+  source  = "git@github.com:PimpMyNines/Terraform-Module-Standard-Labels-Tags.git?ref=main"
 
   enabled = var.enabled
 
