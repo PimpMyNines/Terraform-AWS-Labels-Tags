@@ -1,6 +1,3 @@
-data "aws_partition" "current" {}
-data "aws_caller_identity" "current" {}
-data "aws_region" "current" {}
 resource "time_static" "creation" {}
 
 locals {
@@ -16,9 +13,9 @@ locals {
   tags                = coalesce(var.tags, var.context.tags, {})
 
   # AWS
-  aws_region     = coalesce(var.aws_region, var.context.aws_region, data.aws_region.current.name)
-  aws_account_id = coalesce(var.aws_account_id, var.context.aws_account_id, data.aws_caller_identity.current.id)
-  aws_partition  = coalesce(var.aws_partition, var.context.aws_partition, data.aws_partition.current.partition)
+  aws_region     = coalesce(var.aws_region, var.context.aws_region)
+  aws_account_id = coalesce(var.aws_account_id, var.context.aws_account_id)
+  aws_partition  = coalesce(var.aws_partition, var.context.aws_partition)
 
   # Standard Prefixes
   prefix_external_service  = coalesce(var.prefix_external_service, var.context.prefix_external_service, "organization/external/service")
