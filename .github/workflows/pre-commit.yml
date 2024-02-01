@@ -27,27 +27,11 @@ jobs:
 
       - name: Install and configure tools
         run: |
-          install_tool() {
-            local tool_name="$1"
-            local download_url=$(curl -s "https://api.github.com/repos/$2/releases/latest" | jq -r .assets[0].browser_download_url)
-            local extension="${download_url##*.}"  # Get the file extension
-            local temp_file="/tmp/$tool_name.$extension"
-            
-            curl -L "$download_url" -o "$temp_file"
-            
-            if [ "$extension" = "zip" ]; then
-              unzip -q "$temp_file"
-            else
-              tar -xzf "$temp_file" && sudo mv "$tool_name" /usr/bin/
-            fi
-      
-            rm "$temp_file"
-          }
-
-          install_tool "terraform-docs" "terraform-docs/terraform-docs"
-          install_tool "tfupdate" "minamijoyo/tfupdate"
-          install_tool "hcledit" "minamijoyo/hcledit"
-          install_tool "tflint" "terraform-linters/tflint"
+          curl -L "$(curl -s https://api.github.com/repos/terraform-docs/terraform-docs/releases/latest | grep -o -E -m 1 "https://.+?-linux-amd64.tar.gz")" > terraform-docs.tgz && tar -xzf terraform-docs.tgz terraform-docs && rm terraform-docs.tgz && chmod +x terraform-docs && sudo mv terraform-docs /usr/bin/
+          curl -L "$(curl -s https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E -m 1 "https://.+?_linux_amd64.zip")" > tflint.zip && unzip tflint.zip && rm tflint.zip && sudo mv tflint /usr/bin/
+          sudo apt install -y jq && \
+          curl -L "$(curl -s https://api.github.com/repos/minamijoyo/tfupdate/releases/latest | grep -o -E -m 1 "https://.+?_linux_amd64.tar.gz")" > tfupdate.tar.gz && tar -xzf tfupdate.tar.gz tfupdate && rm tfupdate.tar.gz && sudo mv tfupdate /usr/bin/
+          curl -L "$(curl -s https://api.github.com/repos/minamijoyo/hcledit/releases/latest | grep -o -E -m 1 "https://.+?_linux_amd64.tar.gz")" > hcledit.tar.gz && tar -xzf hcledit.tar.gz hcledit && rm hcledit.tar.gz && sudo mv hcledit /usr/bin/
 
       - name: Run pre-commit
         run: pre-commit run --all-files
