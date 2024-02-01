@@ -38,16 +38,16 @@ jobs:
             if [ "$extension" = "zip" ]; then
               unzip -q "$temp_file"
             else
-              tar xzf "$temp_file" && sudo mv "$tool_name" /usr/bin/
+              tar -xzf "$temp_file" && sudo mv "$tool_name" /usr/bin/
             fi
       
             rm "$temp_file"
           }
 
           install_tool "terraform-docs" "terraform-docs/terraform-docs"
-          install_tool "tflint" "terraform-linters/tflint"
           install_tool "tfupdate" "minamijoyo/tfupdate"
           install_tool "hcledit" "minamijoyo/hcledit"
+          install_tool "tflint" "terraform-linters/tflint"
 
       - name: Run pre-commit
         run: pre-commit run --all-files
