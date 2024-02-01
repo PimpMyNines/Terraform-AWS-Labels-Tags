@@ -41,10 +41,6 @@ locals {
     key => replace(value, local.regex_replace_chars, length(local.filtered_labels) > 1 ? local.delimiter : "")
   }
 
-
-
-
-
   # Normalize filtered labels and apply case transformations
   normalized_ordered_labels = [
     for label_key in local.label_order :
@@ -57,7 +53,6 @@ locals {
     }
   ]
 
-  # Generate ID using normalized and sorted labels
   # Generate ID using normalized and sorted labels, filtering out null values
   generated_id = join(local.delimiter, [for label in local.normalized_ordered_labels : label.value if label.value != null])
 
@@ -73,7 +68,7 @@ locals {
     monitored_by      = coalesce(var.tag_monitored_by, "cloudwatch")
     git_repo          = coalesce(var.tag_git_repo, "https://github.com/PimpMyNines/Terraform-Module-Labels")
     creation_time     = coalesce(var.tag_creation_time, var.context.tag_creation_time, time_static.creation.rfc3339)
-    last_modified_by  = coalesce(var.tag_last_modified_by, var.context.tag_last_modified_by)
+    last_modified_by  = var.tag_last_modified_by != null ? var.tag_last_modified_by : var.context.tag_last_modified_by != null ? var.context.tag_last_modified_by : ""
   }
 
 
