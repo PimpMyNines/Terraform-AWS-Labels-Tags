@@ -39,7 +39,7 @@ jobs:
       - name: Commit changes
         run: |
           git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+          git config user.email "slopresto@pimpmynines.com"
           git add .
           git commit -m "Auto-fixes by pre-commit"
           git push
