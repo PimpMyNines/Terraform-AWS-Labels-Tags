@@ -7,14 +7,15 @@ on:
       - fix/*
       - release/*
 
-permissions:
-  contents: read
-  packages: write
+env:
+  REGISTRY: ghcr.io
 
 jobs:
   pre-commit:
     runs-on: ghcr.io/pimpmynines/github-runner-image-base:latest
-
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
