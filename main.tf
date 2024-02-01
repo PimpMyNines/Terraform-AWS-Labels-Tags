@@ -13,9 +13,9 @@ locals {
   tags                = coalesce(var.tags, var.context.tags, {})
 
   # AWS
-  aws_region     = coalesce(var.aws_region, var.context.aws_region)
-  aws_account_id = coalesce(var.aws_account_id, var.context.aws_account_id)
-  aws_partition  = coalesce(var.aws_partition, var.context.aws_partition)
+  aws_region     = coalesce(var.aws_region, var.context.aws_region, "us-east-1")
+  aws_account_id = var.aws_account_id != null ? var.aws_account_id : var.context.aws_account_id != null ? var.context.aws_account_id : ""
+  aws_partition  = var.aws_partition != null ? var.aws_partition : var.context.aws_partition != null ? var.context.aws_partition : ""
 
   # Standard Prefixes
   prefix_external_service  = coalesce(var.prefix_external_service, var.context.prefix_external_service, "organization/external/service")
