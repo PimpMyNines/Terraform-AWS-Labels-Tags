@@ -5,15 +5,15 @@ resource "time_static" "creation" {}
 
 locals {
   # Defaults
-  enabled                         = var.enabled == null ? var.context.enabled : var.enabled
-  regex_replace_chars                   = coalesce(var.regex_replace_chars, var.context.regex_replace_chars, "/[^-a-zA-Z0-9]/")
-  delimiter                       = coalesce(var.delimiter, var.context.delimiter, "-")
-  id_length_limit                 = coalesce(var.id_length_limit, var.context.id_length_limit, 63)
-  key_case                        = coalesce(var.key_case, var.context.key_case, "lower")
-  value_case                      = coalesce(var.value_case, var.context.value_case, "lower")
-  labels_as_tags                  = coalesce(var.labels_as_tags, var.context.labels_as_tags, true)
-  label_order                     = coalesce(var.label_order, var.context.label_order, ["namespace", "name", "environment", "stage", "attributes"])
-  tags                            = coalesce(var.tags, var.context.tags, {})
+  enabled             = var.enabled == null ? var.context.enabled : var.enabled
+  regex_replace_chars = coalesce(var.regex_replace_chars, var.context.regex_replace_chars, "/[^-a-zA-Z0-9]/")
+  delimiter           = coalesce(var.delimiter, var.context.delimiter, "-")
+  id_length_limit     = coalesce(var.id_length_limit, var.context.id_length_limit, 63)
+  key_case            = coalesce(var.key_case, var.context.key_case, "lower")
+  value_case          = coalesce(var.value_case, var.context.value_case, "lower")
+  labels_as_tags      = coalesce(var.labels_as_tags, var.context.labels_as_tags, true)
+  label_order         = coalesce(var.label_order, var.context.label_order, ["namespace", "name", "environment", "stage", "attributes"])
+  tags                = coalesce(var.tags, var.context.tags, {})
 
   # AWS
   aws_region     = coalesce(var.aws_region, var.context.aws_region, data.aws_region.current.name)
@@ -52,7 +52,7 @@ locals {
   normalized_ordered_labels = [
     for label_key in local.label_order :
     {
-      key   = local.key_case == "none" ? label_key : local.key_case == "title" ? title(label_key) : local.key_case == "upper" ? upper(label_key) : lower(label_key)
+      key = local.key_case == "none" ? label_key : local.key_case == "title" ? title(label_key) : local.key_case == "upper" ? upper(label_key) : lower(label_key)
       value = contains(keys(local.cleaned_labels), label_key) ? (
         local.value_case == "none" ? local.cleaned_labels[label_key] : local.key_case == "title" ? title(local.cleaned_labels[label_key]) :
         local.key_case == "upper" ? upper(local.cleaned_labels[label_key]) : lower(local.cleaned_labels[label_key])
@@ -72,7 +72,7 @@ locals {
 
   # Tags
   additional_tags = {
-    terraform_managed  = coalesce(var.tag_terraform_managed, "true")
+    terraform_managed = coalesce(var.tag_terraform_managed, "true")
     monitored_by      = coalesce(var.tag_monitored_by, "cloudwatch")
     git_repo          = coalesce(var.tag_git_repo, "https://github.com/PimpMyNines/Terraform-Module-Labels")
     creation_time     = coalesce(var.tag_creation_time, time_static.creation.rfc3339)
@@ -94,16 +94,16 @@ locals {
 
   # Context of this label to pass to other label modules
   output_context = {
-    enabled                         = local.enabled
+    enabled = local.enabled
     # Defaults
-    regex_replace_chars                   = local.regex_replace_chars
-    delimiter                       = local.delimiter
-    id_length_limit                 = local.id_length_limit
-    key_case                        = local.key_case
-    value_case                      = local.value_case
-    labels_as_tags                  = local.labels_as_tags
-    label_order                     = local.label_order
-    tags                            = local.all_tags
+    regex_replace_chars = local.regex_replace_chars
+    delimiter           = local.delimiter
+    id_length_limit     = local.id_length_limit
+    key_case            = local.key_case
+    value_case          = local.value_case
+    labels_as_tags      = local.labels_as_tags
+    label_order         = local.label_order
+    tags                = local.all_tags
 
     # AWS
     aws_region     = local.aws_region
@@ -117,11 +117,11 @@ locals {
     prefix_internal_employee = local.prefix_internal_employee
 
     # Labels
-    namespace      = local.labels.namespace
-    tenant         = local.labels.tenant
-    environment    = local.labels.environment
-    stage          = local.labels.stage
-    name           = local.labels.name
-    attributes     = compact(split(local.delimiter, local.labels.attributes))
+    namespace   = local.labels.namespace
+    tenant      = local.labels.tenant
+    environment = local.labels.environment
+    stage       = local.labels.stage
+    name        = local.labels.name
+    attributes  = compact(split(local.delimiter, local.labels.attributes))
   }
 }
