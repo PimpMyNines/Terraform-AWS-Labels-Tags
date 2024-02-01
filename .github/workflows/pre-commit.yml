@@ -7,33 +7,40 @@ on:
       - fix/*
       - release/*
 
-env:
-  REGISTRY: ghcr.io
-
 jobs:
   pre-commit:
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
+
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v2
         with:
           python-version: 3.x  # Choose the appropriate Python version
+
       - name: Install pre-commit
         run: pip install pre-commit
-      - name: Install pre-commit requirements
+
+      - name: Install and configure tools
         run: |
-          curl -L "$(curl -s https://api.github.com/repos/terraform-docs/terraform-docs/releases/latest | grep -o -E -m 1 "https://.+?-linux-amd64.tar.gz")" > terraform-docs.tgz && tar -xzf terraform-docs.tgz terraform-docs && rm terraform-docs.tgz && chmod +x terraform-docs && sudo mv terraform-docs /usr/bin/
-          curl -L "$(curl -s https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E -m 1 "https://.+?_linux_amd64.zip")" > tflint.zip && unzip tflint.zip && rm tflint.zip && sudo mv tflint /usr/bin/
-          sudo apt install -y jq && \
-          curl -L "$(curl -s https://api.github.com/repos/minamijoyo/tfupdate/releases/latest | grep -o -E -m 1 "https://.+?_linux_amd64.tar.gz")" > tfupdate.tar.gz && tar -xzf tfupdate.tar.gz tfupdate && rm tfupdate.tar.gz && sudo mv tfupdate /usr/bin/
-          curl -L "$(curl -s https://api.github.com/repos/minamijoyo/hcledit/releases/latest | grep -o -E -m 1 "https://.+?_linux_amd64.tar.gz")" > hcledit.tar.gz && tar -xzf hcledit.tar.gz hcledit && rm hcledit.tar.gz && sudo mv hcledit /usr/bin/
+          install_tool() {
+            local tool_name="$1"
+            local download_url=$(curl -s "https://api.github.com/repos/$2/releases/latest" | jq -r .assets[0].browser_download_url)
+            curl -L "$download_url" | tar xz && sudo mv "$tool_name" /usr/bin/
+          }
+
+          install_tool "terraform-docs" "terraform-docs/terraform-docs"
+          install_tool "tflint" "terraform-linters/tflint"
+          install_tool "tfupdate" "minamijoyo/tfupdate"
+          install_tool "hcledit" "minamijoyo/hcledit"
+
       - name: Run pre-commit
         run: pre-commit run --all-files
+
       - name: Commit changes
         run: |
           git config user.name "GitHub Actions"
