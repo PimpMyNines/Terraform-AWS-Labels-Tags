@@ -4,7 +4,7 @@
 This is a simple module, designed to accept label and tag inputs to automatically generate standardized tags and ID 
 labels. Using this module will output the derived values as outputs to be used as shown below.
 
-### Example
+### Example Usage
 
 ```hcl
 module "labels" {
@@ -62,6 +62,141 @@ module "ecs_labels" {
 
 }
 ```
+### Example Output
+```hcl
+Outputs:
+
+ecs_context = {
+  "attributes" = tolist([
+    "testing",
+  ])
+  "aws_account_id" = "365834568155"
+  "aws_partition" = "aws"
+  "aws_region" = "us-east-1"
+  "delimiter" = "-"
+  "enabled" = true
+  "environment" = "live"
+  "id_length_limit" = 0
+  "key_case" = "title"
+  "label_order" = tolist([
+    "namespace",
+    "environment",
+    "stage",
+    "name",
+    "attributes",
+  ])
+  "labels_as_tags" = true
+  "name" = "ecs"
+  "namespace" = "generic"
+  "prefix_external_employee" = "pimpmynines/external/employee"
+  "prefix_external_service" = "pimpmynines/external/service"
+  "prefix_internal_employee" = "pimpmynines/internal/employees"
+  "prefix_internal_service" = "pimpmynines/internal/service"
+  "regex_replace_chars" = "/[^a-zA-Z0-9-]/"
+  "stage" = "qa"
+  "tags" = tomap({
+    "Attributes" = "Testing"
+    "Environment" = "Live"
+    "Name" = "Ecs"
+    "Namespace" = "Generic"
+    "Stage" = "Qa"
+    "creation_time" = "2024-02-01T22:15:35Z"
+    "git_repo" = "Https://Github.Com/PimpMyNines/Terraform-Module-Labels"
+    "last_modified_by" = "Arn:Aws:Sts::365834568155:Assumed-Role/AWSReservedSSO_AWSAdministratorAccess_e634b7397975f32f/Slopresto+Aws@Pimpmynines.Com"
+    "monitored_by" = "Cloudwatch"
+    "terraform_managed" = "True"
+  })
+  "tenant" = "engineering"
+  "value_case" = "lower"
+}
+labels_context = {
+  "attributes" = tolist([
+    "testing",
+  ])
+  "aws_account_id" = "365834568155"
+  "aws_partition" = "aws"
+  "aws_region" = "us-east-1"
+  "delimiter" = "-"
+  "enabled" = true
+  "environment" = "live"
+  "id_length_limit" = 45
+  "key_case" = "lower"
+  "label_order" = tolist([
+    "namespace",
+    "name",
+    "environment",
+    "stage",
+  ])
+  "labels_as_tags" = true
+  "name" = "example"
+  "namespace" = "generic"
+  "prefix_external_employee" = "pimpmynines/external/employee"
+  "prefix_external_service" = "pimpmynines/external/service"
+  "prefix_internal_employee" = "pimpmynines/internal/employees"
+  "prefix_internal_service" = "pimpmynines/internal/service"
+  "regex_replace_chars" = "/[^-a-zA-Z0-9]/"
+  "stage" = "qa"
+  "tags" = tomap({
+    "creation_time" = "2024-02-01t22:15:35z"
+    "environment" = "live"
+    "foo" = "bar"
+    "git_repo" = "https://github.com/pimpmynines/terraform-module-labels"
+    "last_modified_by" = "arn:aws:sts::365834568155:assumed-role/awsreservedsso_awsadministratoraccess_e634b7397975f32f/slopresto+aws@pimpmynines.com"
+    "monitored_by" = "cloudwatch"
+    "name" = "example"
+    "namespace" = "generic"
+    "stage" = "qa"
+    "terraform_managed" = "true"
+  })
+  "tenant" = "engineering"
+  "value_case" = "lower"
+}
+route53_context = {
+  "attributes" = tolist([
+    "testing",
+  ])
+  "aws_account_id" = "365834568155"
+  "aws_partition" = "aws"
+  "aws_region" = "us-east-1"
+  "delimiter" = "-"
+  "enabled" = true
+  "environment" = "live"
+  "id_length_limit" = 0
+  "key_case" = "title"
+  "label_order" = tolist([
+    "namespace",
+    "environment",
+    "stage",
+    "name",
+    "attributes",
+  ])
+  "labels_as_tags" = true
+  "name" = "route53"
+  "namespace" = "generic"
+  "prefix_external_employee" = "pimpmynines/external/employee"
+  "prefix_external_service" = "pimpmynines/external/service"
+  "prefix_internal_employee" = "pimpmynines/internal/employees"
+  "prefix_internal_service" = "pimpmynines/internal/service"
+  "regex_replace_chars" = "/[^a-zA-Z0-9-]/"
+  "stage" = "qa"
+  "tags" = tomap({
+    "Attributes" = "Testing"
+    "Environment" = "Live"
+    "Name" = "Route53"
+    "Namespace" = "Generic"
+    "Stage" = "Qa"
+    "creation_time" = "2024-02-01T22:15:35Z"
+    "git_repo" = "Https://Github.Com/PimpMyNines/Terraform-Module-Labels"
+    "last_modified_by" = "Arn:Aws:Sts::xxxxxxxxx:Assumed-Role/xxxxxxxxxx/MyUser@MyDomain.Com"
+    "monitored_by" = "Cloudwatch"
+    "terraform_managed" = "True"
+  })
+  "tenant" = "engineering"
+  "value_case" = "lower"
+}
+
+```
+
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
