@@ -68,20 +68,3 @@ jobs:
               repo: context.repo.repo,
               body: output
             })
-
-  fail:
-    name: Fail if Terraform Plan Failed
-    needs: terraform
-    if: failure()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set workflow status as failed
-        run: echo "Terraform plan failed." && exit 1
-
-  apply:
-    name: Terraform Apply
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Terraform Apply
-        run: terraform apply -auto-approve -input=false
