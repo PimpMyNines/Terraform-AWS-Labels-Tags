@@ -68,7 +68,7 @@ locals {
     MonitoredBy      = coalesce(var.tag_monitored_by, "cloudwatch")
     GitRepo          = coalesce(var.tag_git_repo, "https://github.com/PimpMyNines/Terraform-Module-Labels")
     CreationTime     = coalesce(var.tag_creation_time, var.context.tag_creation_time, time_static.creation.rfc3339)
-    LastModifiedBy  = var.tag_last_modified_by != null ? var.tag_last_modified_by : var.context.tag_last_modified_by != null ? var.context.tag_last_modified_by : ""
+    LastModifiedBy   = var.tag_last_modified_by != null ? var.tag_last_modified_by : var.context.tag_last_modified_by != null ? var.context.tag_last_modified_by : ""
   }
 
 
