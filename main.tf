@@ -64,11 +64,11 @@ locals {
 
   # Tags
   additional_tags = {
-    terraform_managed = coalesce(var.tag_terraform_managed, "true")
-    monitored_by      = coalesce(var.tag_monitored_by, "cloudwatch")
-    git_repo          = coalesce(var.tag_git_repo, "https://github.com/PimpMyNines/Terraform-Module-Labels")
-    creation_time     = coalesce(var.tag_creation_time, var.context.tag_creation_time, time_static.creation.rfc3339)
-    last_modified_by  = var.tag_last_modified_by != null ? var.tag_last_modified_by : var.context.tag_last_modified_by != null ? var.context.tag_last_modified_by : ""
+    TerraformManaged = coalesce(var.tag_terraform_managed, "true")
+    MonitoredBy      = coalesce(var.tag_monitored_by, "cloudwatch")
+    GitRepo          = coalesce(var.tag_git_repo, "https://github.com/PimpMyNines/Terraform-Module-Labels")
+    CreationTime     = coalesce(var.tag_creation_time, var.context.tag_creation_time, time_static.creation.rfc3339)
+    LastModifiedBy  = var.tag_last_modified_by != null ? var.tag_last_modified_by : var.context.tag_last_modified_by != null ? var.context.tag_last_modified_by : ""
   }
 
 
