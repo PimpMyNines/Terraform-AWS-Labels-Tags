@@ -102,7 +102,7 @@ ecs_context = {
     "Stage" = "Qa"
     "creation_time" = "2024-02-01T22:15:35Z"
     "git_repo" = "Https://Github.Com/PimpMyNines/Terraform-Module-Labels"
-    "last_modified_by" = "Arn:Aws:Sts::365834568155:Assumed-Role/AWSReservedSSO_AWSAdministratorAccess_e634b7397975f32f/Slopresto+Aws@Pimpmynines.Com"
+    "last_modified_by" = "Arn:Aws:Sts::xxxxxxxxx:Assumed-Role/xxxxxxxxxx/MyUser@MyDomain.Com"
     "monitored_by" = "Cloudwatch"
     "terraform_managed" = "True"
   })
@@ -141,7 +141,7 @@ labels_context = {
     "environment" = "live"
     "foo" = "bar"
     "git_repo" = "https://github.com/pimpmynines/terraform-module-labels"
-    "last_modified_by" = "arn:aws:sts::365834568155:assumed-role/awsreservedsso_awsadministratoraccess_e634b7397975f32f/slopresto+aws@pimpmynines.com"
+    "last_modified_by" = "Arn:Aws:Sts::xxxxxxxxx:Assumed-Role/xxxxxxxxxx/MyUser@MyDomain.Com"
     "monitored_by" = "cloudwatch"
     "name" = "example"
     "namespace" = "generic"
